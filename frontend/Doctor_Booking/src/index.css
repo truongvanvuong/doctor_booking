@@ -42,7 +42,7 @@
         @apply w-full;
     }
     section {
-        @apply py-[30px];
+        @apply py-[35px];
     }
 }
 @media only screen and (max-width: 768px) {

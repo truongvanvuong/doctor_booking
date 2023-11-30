@@ -80,30 +80,33 @@ const Signup = () => {
                                 />
                             </div>
                             <div className="mb-5 flex items-center justify-between">
-                                <label className="text-headingColor font-bold text-[14px] leading-7">
+                                <label className="text-headingColor font-bold text-[14px] md:text-[16px] leading-7 ">
                                     Are you a:
                                     <select
                                         name="role"
                                         value={formData.role}
                                         onChange={handleInput}
-                                        className="text-textColor font-semibold text-[14px] leading-7 px-2 py-3 focus:outline-none cursor-pointer"
+                                        className="ml-[2px] md:ml-0 text-textColor font-semibold text-[14px] md:text-[15px] leading-7 px-1 md:px-2 py-3 focus:outline-none cursor-pointer bg-transparent"
                                     >
                                         <option value="">Seclect</option>
                                         <option value="patient">Patient</option>
                                         <option value="doctor">Doctor</option>
                                     </select>
                                 </label>
-                                <label name="gender" className="text-headingColor font-bold text-[14px] leading-7">
+                                <label
+                                    name="gender"
+                                    className="text-headingColor font-bold text-[14px] md:text-[16px] leading-7 "
+                                >
                                     Gender:
                                     <select
                                         name="gender"
                                         value={formData.gender}
                                         onChange={handleInput}
-                                        className="text-textColor font-semibold text-[14px] leading-7 px-2 py-3 focus:outline-none cursor-pointer"
+                                        className=" ml-[2px] md:ml-0 text-textColor font-semibold text-[14px] md:text-[15px] leading-7 px-1 md:px-2 py-3 focus:outline-none cursor-pointer  bg-transparent"
                                     >
                                         <option value="">Seclect</option>
                                         <option value="male">Male</option>
-                                        <option value="female">Doctor</option>
+                                        <option value="female">female</option>
                                         <option value="other">Other</option>
                                     </select>
                                 </label>
