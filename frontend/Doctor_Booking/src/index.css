@@ -15,7 +15,7 @@
         @apply transition ease-linear duration-200 bg-primaryColor py-[15px] px-[35px] rounded-[50px] text-white font-[600] mt-[38px];
     }
     .btn:hover {
-        @apply brightness-110 shadow-xl shadow-blue-500/50;
+        @apply brightness-110 shadow-2xl shadow-blue-500/50;
     }
     .heading {
         @apply text-[44px] leading-[54px] font-[700] text-headingColor;
@@ -28,6 +28,13 @@
     }
     .hero__section {
         @apply bg-[url('./assets/images/hero-bg.png')] bg-no-repeat bg-center bg-cover;
+    }
+    .form__label {
+        @apply text-textColor font-semibold text-[16px] mb-2;
+    }
+    .form__input {
+        @apply w-full px-4 py-3 border border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor 
+        text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer rounded-md;
     }
 }
 @media only screen and (max-width: 1024px) {
