@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react';
-import logo from '../../assets/images/logo.png';
-import userImg from '../../assets/images/avatar-icon.png';
+import { useEffect, useRef, useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { BiMenu, BiX } from 'react-icons/bi';
+
+import logo from '../../assets/images/logo.png';
+import { authContext } from '../../context/AuthContext.jsx';
 
 const navLinks = [
     {
@@ -26,6 +27,7 @@ const navLinks = [
 const Header = () => {
     const headerRef = useRef(null);
     const menuRef = useRef(null);
+    const { user, role, token } = useContext(authContext);
 
     const handleStickyHeader = () => {
         const headerHeight = headerRef.current.clientHeight;
@@ -62,7 +64,7 @@ const Header = () => {
 
                     <div className="navigation" ref={menuRef} onClick={toggleMenu}>
                         <div className="wrap__menu" onClick={stop}>
-                            <div className="menu__heading md:hidden">
+                            <div className="flex items-center justify-between m-4 md:hidden">
                                 <Link to="/">
                                     <img src={logo} alt="logo" />
                                 </Link>
@@ -73,40 +75,68 @@ const Header = () => {
                                     <BiX className="w-8 h-8 cursor-pointer" />
                                 </div>
                             </div>
-                            <ul className="menu flex items-center gap-[2.7rem]">
-                                {navLinks.map((link, index) => (
-                                    <li key={index}>
-                                        <NavLink
-                                            to={link.path}
-                                            className={(navClass) =>
-                                                navClass.isActive
-                                                    ? 'text-primaryColor text-16px leading-7 font-[600]'
-                                                    : 'text-textColor text-16px leading-7 font-[500]'
-                                            }
-                                        >
-                                            {link.display}
-                                        </NavLink>
-                                    </li>
-                                ))}
-                            </ul>
+                            <div className="mr-8 md:mr-0 mt-8 md:mt-0 inline-block float-right">
+                                {token && user ? (
+                                    <div className="md:hidden">
+                                        <Link to={`${role === 'doctor' ? '/doctors/profile/me' : 'user/profile/me'}`}>
+                                            <div className="flex flex-col gap-3 items-end mb-4">
+                                                <figure className="w-[65px] h-[65px] rounded-full cursor-pointer overflow-hidden border-[1px] border-solid  border-[#3333]">
+                                                    <img
+                                                        src={user?.avatar}
+                                                        alt="avatar"
+                                                        className="w-full h-full object-cover rounded-full"
+                                                    />
+                                                </figure>
+                                                <h2 className="font-[600]">{user?.name}</h2>
+                                            </div>
+                                        </Link>
+                                    </div>
+                                ) : null}
+                                <ul className="menu flex items-end md:gap-[2.7rem] gap-[2.4rem] mt-[40px] md:mt-0 md:items-center">
+                                    {navLinks.map((link, index) => (
+                                        <li key={index}>
+                                            <NavLink
+                                                to={link.path}
+                                                className={(navClass) =>
+                                                    navClass.isActive
+                                                        ? 'text-primaryColor text-16px block leading-7 font-[500] text-right'
+                                                        : 'text-textColor text-16px block leading-7 font-[500] text-right hover:text-primaryColor hover:opacity-90 transition-colors'
+                                                }
+                                            >
+                                                {link.display}
+                                            </NavLink>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
                     {/*_______nav right_______*/}
 
                     <div className="flex items-center gap-4">
-                        <div className="hidden">
-                            <Link to="/">
-                                <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
-                                    <img src={userImg} alt="avatar" className="w-full rounded-full" />
-                                </figure>
+                        {token && user ? (
+                            <div className="hidden md:block">
+                                <Link to={`${role === 'doctor' ? '/doctors/profile/me' : 'user/profile/me'}`}>
+                                    <div className="flex items-center gap-4">
+                                        <figure className="w-[35px] h-[35px] rounded-full cursor-pointer overflow-hidden border border-solid  border-[#333]">
+                                            <img
+                                                src={user?.avatar}
+                                                alt="avatar"
+                                                className="w-full h-full object-cover rounded-full"
+                                            />
+                                        </figure>
+                                        <h2>{user?.name}</h2>
+                                    </div>
+                                </Link>
+                            </div>
+                        ) : (
+                            <Link to="login">
+                                <button className="hover:brightness-110 transition ease-linear duration-200 bg-primaryColor py-2 px-6 text-white font-[600] rounded-[50px]">
+                                    Login
+                                </button>
                             </Link>
-                        </div>
-                        <Link to="login">
-                            <button className="hover:brightness-110 transition ease-linear duration-200 bg-primaryColor py-2 px-6 text-white font-[600] rounded-[50px]">
-                                Login
-                            </button>
-                        </Link>
+                        )}
                         <span className="md:hidden" onClick={toggleMenu}>
                             <BiMenu className="w-8 h-7 cursor-pointer" />
                         </span>
